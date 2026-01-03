@@ -748,7 +748,12 @@ fn netReadImpl(userdata: ?*anyopaque, src: Io.net.Socket.Handle, data: [][]u8) I
     const rt: *Runtime = @ptrCast(@alignCast(userdata));
     return zio_net.netRead(rt, src, data) catch |err| switch (err) {
         error.Canceled => return error.Canceled,
-        else => return error.Unexpected,
+        error.SystemResources,
+        error.ConnectionResetByPeer => |e| return e,
+        else => {
+            std.log.err("{}", .{err});
+            return error.Unexpected;
+        },
     };
 }
 
