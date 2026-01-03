@@ -828,7 +828,6 @@ pub const vtable = Io.VTable{
     .concurrent = concurrentImpl,
     .await = awaitImpl,
     .cancel = cancelImpl,
-    .cancelRequested = cancelRequestedImpl,
     .groupAsync = groupAsyncImpl,
     .groupConcurrent = groupConcurrentImpl,
     .groupWait = groupWaitImpl,
