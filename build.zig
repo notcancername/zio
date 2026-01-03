@@ -87,7 +87,7 @@ pub fn build(b: *std.Build) void {
 
         // Link libc for examples that need mprotect/signals
         if (std.mem.eql(u8, example.name, "stack-overflow-demo")) {
-            exe.linkLibC();
+            exe.root_module.link_libc = true;
         }
 
         const install_exe = b.addInstallArtifact(exe, .{});
